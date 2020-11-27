@@ -7,9 +7,22 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "3.7"
+pandas = "^1.1.0"
 geopandas = "0.8.1"
 
+
 [tool.poetry.dev-dependencies]
+wemake-python-styleguide = "^0.14.1"
+pandas-vet = "^0.2.2"
+pytest = "^6.0.1"
+ipython = "^7.17.0"
+ipdb = "^0.13.3"
+pyicontract-lint = "^2.0.0"
+black = "^19.10b0"
+mypy = "^0.782"
+pre-commit = "^2.6.0"
+poetry2conda = "^0.3.0"
+
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
