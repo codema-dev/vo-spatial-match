@@ -1,3 +1,3 @@
-# vo-spatial-match
+# Spatially Link Valuation Office Commerical Buildings
 
 Extract and transform the open-access valuation office dataset for Dublin, and link each building to in this repo link each VO building to its corresponding SA, ED and Postcode
