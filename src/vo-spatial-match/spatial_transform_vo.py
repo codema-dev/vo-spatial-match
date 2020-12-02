@@ -53,7 +53,7 @@ def _merge_vo_ed(df: pd.DataFrame, gdf: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
 @task
 def _extract_columns(df: pd.DataFrame, equiv: list) -> pd.DataFrame:
 
-    return df[df[equiv]]
+    return df[equiv]
 
 
 @task
@@ -74,19 +74,22 @@ with Flow("Assign SA, ED and Postcode to each VO building") as flow:
     sa_post_dropped = _remove_index(vo_sa_post)
     vo_final = _merge_vo_ed(sa_post_dropped, ed)
     vo_extracted = _extract_columns(
-        "Address",
-        "Uses",
-        "benchmark",
-        "typical_fossil_fuel",
-        "typical_electricity",
-        "typical_fossil_fuel_demand",
-        "typical_electricity_demand",
-        "geometry",
-        "small_area",
-        "postcodes",
-        "CSOED",
+        vo_final,
+        equiv={
+            "Address",
+            "Uses",
+            "benchmark",
+            "typical_fossil_fuel",
+            "typical_electricity",
+            "typical_fossil_fuel_demand",
+            "typical_electricity_demand",
+            "geometry",
+            "small_area",
+            "postcodes",
+            "CSOED",
+        },
     )
-    vo_output = _df_to_parquet(vo_extracted, "data/vo_spatial.parquet")
+    vo_output = _df_to_parquet(vo_extracted, path="data/vo_spatial.parquet")
 
 
 if __name__ == "__main__":
