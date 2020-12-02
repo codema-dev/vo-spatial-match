@@ -42,6 +42,11 @@ def _merge_vo_ed(df: pd.DataFrame, gdf: gpd.GeoDataFrame, ) -> gpd.GeoDataFrame:
 
     return gpd.sjoin(df, gdf, how="inner")
 
+@task
+def _extract_columns(df: pd.DataFrame, equiv: list) -> pd.DataFrame:
+
+    return df[df[equiv]]
+
 
 with Flow ("Assign SA, ED and Postcode to each VO building") as flow:
 
@@ -54,6 +59,7 @@ with Flow ("Assign SA, ED and Postcode to each VO building") as flow:
     vo_sa_post = _merge_vo_post(vo_sa_dropped, postcode)
     sa_post_dropped = _remove_index(vo_sa_post)
     vo_final = _merge_vo_ed(sa_post_dropped, ed)
+    vo_extracted = _extract_columns('Address', 'Uses', 'benchmark', 'typical_fossil_fuel','typical_electricity', 'typical_fossil_fuel_demand','typical_electricity_demand', 'geometry', 'small_area', 'postcodes', 'CSOED')
 
 
 
